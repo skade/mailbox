@@ -1,3 +1,14 @@
+use std::env::args;
+
 fn main() {
-    println!("Hello, world!");
+    let who = args().nth(1);
+
+    match who {
+        Some(name) => {
+            println!("Hello, {}!", name);
+        },
+        None => {
+            println!("Hello, world!");
+        }
+    }
 }
