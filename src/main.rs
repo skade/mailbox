@@ -3,10 +3,10 @@ use std::io::BufReader;
 use std::io::BufRead;
 use std::io::Write;
 use std::thread;
-use std::sync::{Arc,Mutex};
+use std::sync::{Arc, Mutex};
 
 struct SyncedMailbox {
-    inner: Mutex<Vec<String>>
+    inner: Mutex<Vec<String>>,
 }
 
 impl SyncedMailbox {
@@ -30,7 +30,7 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:7200").unwrap();
 
     let mut storage = Arc::new(SyncedMailbox::new());
-   
+
     for stream in listener.incoming() {
         match stream {
             Ok(mut s) => {
