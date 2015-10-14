@@ -29,12 +29,12 @@ impl SyncedMailbox {
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7200").unwrap();
 
-    let mut storage = Arc::new(SyncedMailbox::new());
+    let storage = Arc::new(SyncedMailbox::new());
 
     for stream in listener.incoming() {
         match stream {
             Ok(mut s) => {
-                let mut local_storage = storage.clone();
+                let local_storage = storage.clone();
                 thread::spawn(move || {
                     handle(&mut s, &local_storage);
                 });
@@ -60,9 +60,9 @@ fn handle(stream: &mut TcpStream, storage: &SyncedMailbox) {
 
 fn handle_read(stream: &mut TcpStream, storage: &SyncedMailbox) {
     if let Some(message) = storage.read() {
-        write!(stream, "{}", message.trim());
+        write!(stream, "{}", message);
     } else {
-        write!(stream, "No Message in inbox!");
+        write!(stream, "No Message in inbox!\n");
     }
 }
 
