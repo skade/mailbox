@@ -59,11 +59,12 @@ fn handle(stream: &mut TcpStream, storage: &SyncedMailbox) {
 }
 
 fn handle_read(stream: &mut TcpStream, storage: &SyncedMailbox) {
-    if let Some(message) = storage.read() {
-        write!(stream, "{}", message);
-    } else {
-        write!(stream, "No Message in inbox!\n");
-    }
+    let data = storage.read();
+
+    match data {
+        Some(message) => write!(stream, "{}", message),
+        None => write!(stream, "No message in inbox!\n")
+    }.ok().expect("Write failed!");
 }
 
 fn handle_write(message: String, storage: &SyncedMailbox) {
