@@ -32,3 +32,8 @@ back over that connection as well.
 ## Step 5: 
 
 You add concurrency and basic message buffering. 
+
+# LICENSE
+
+CC0, use and copy and change whatever you'd like. Mention me if you want,
+but you have no obligations.
