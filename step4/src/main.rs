@@ -5,8 +5,8 @@ use std::io::Write;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7200").unwrap();
-   
-    // accept connections and process them, spawning a new thread for each one
+
+    // accept connections and process them, one by one
     for stream in listener.incoming() {
         match stream {
             Ok(mut s) => {
